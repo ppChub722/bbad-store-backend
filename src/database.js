@@ -94,9 +94,16 @@ function matches(doc, query = {}) {
 function writePath(doc, key, value) {
   const parts = key.split('.');
   const last = parts.pop();
-  const target = parts.reduce((acc, part) => (acc[part] ??= {}), doc);
+  const target = parts.reduce((acc, part) => {
+    if (acc[part] === undefined || acc[part] === null) acc[part] = {};
+    return acc[part];
+  }, doc);
   target[last] = value;
 }
+
+// structuredClone needs Node 17. The documents here are plain JSON, so this
+// does the same job on any runtime.
+const clone = (value) => JSON.parse(JSON.stringify(value));
 
 function applyUpdate(doc, update) {
   for (const [op, fields] of Object.entries(update)) {
@@ -185,7 +192,7 @@ function createCursor(docs) {
       return cursor;
     },
     async toArray() {
-      return result.map((doc) => structuredClone(doc));
+      return result.map((doc) => clone(doc));
     },
   };
   return cursor;
@@ -196,7 +203,10 @@ function createCursor(docs) {
  * ------------------------------------------------------------------ */
 
 function createCollection(name, store) {
-  const docs = () => (store[name] ??= []);
+  const docs = () => {
+    if (!store[name]) store[name] = [];
+    return store[name];
+  };
 
   return {
     find(query = {}) {
@@ -205,7 +215,7 @@ function createCollection(name, store) {
 
     async findOne(query = {}) {
       const found = docs().find((doc) => matches(doc, query));
-      return found ? structuredClone(found) : null;
+      return found ? clone(found) : null;
     },
 
     async countDocuments(query = {}) {
