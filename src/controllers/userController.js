@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { JWT_SECRET, TOKEN_EXPIRES_IN_SECONDS } = require('../config/secrets');
 
 exports.registerUser = async (req, res) => {
   const { email, displayname, password } = req.body;
@@ -76,7 +77,9 @@ exports.loginUser = async (req, res) => {
           id: targetUser._id,
         };
 
-        const token = jwt.sign(payload, 'bbad', { expiresIn: 3600 });
+        const token = jwt.sign(payload, JWT_SECRET, {
+          expiresIn: TOKEN_EXPIRES_IN_SECONDS,
+        });
 
         res.status(200).send({
           token: token,
