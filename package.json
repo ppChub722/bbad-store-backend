@@ -5,6 +5,8 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
+    "generate:demo-data": "node scripts/generate-demo-data.js",
+    "smoke": "node scripts/smoke-test.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

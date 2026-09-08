@@ -4,7 +4,7 @@
     "rank_id": "rank3",
     "_id": "650000000000000000000001",
     "email": "fizri@bbad.com",
-    "password": "$2a$10$mfsPVBC1SqrnxSU8YwV4VOUaW..Jq0UzzsdIGQDx4zb88f9fzhjsW",
+    "password": "$2a$10$yYeh83SuBCycrb9yC/kHxetF5kW8wwHAo3wQtgjhBWs/QHPSSlMcK",
     "user_photo": ""
   },
   {
@@ -12,7 +12,7 @@
     "rank_id": "rank2",
     "_id": "650000000000000000000002",
     "email": "burni@bbad.com",
-    "password": "$2a$10$mfsPVBC1SqrnxSU8YwV4VOUaW..Jq0UzzsdIGQDx4zb88f9fzhjsW",
+    "password": "$2a$10$yYeh83SuBCycrb9yC/kHxetF5kW8wwHAo3wQtgjhBWs/QHPSSlMcK",
     "user_photo": ""
   },
   {
@@ -20,7 +20,7 @@
     "rank_id": "rank1",
     "_id": "650000000000000000000003",
     "email": "kuri@bbad.com",
-    "password": "$2a$10$mfsPVBC1SqrnxSU8YwV4VOUaW..Jq0UzzsdIGQDx4zb88f9fzhjsW",
+    "password": "$2a$10$yYeh83SuBCycrb9yC/kHxetF5kW8wwHAo3wQtgjhBWs/QHPSSlMcK",
     "user_photo": ""
   }
 ]

@@ -90,6 +90,12 @@ const slugify = (s) =>
  * `new ObjectId(...)`, which rejects anything else.
  */
 const DEMO_PASSWORD = '12341234';
+
+// bcrypt salts are random, which would make every run produce a different
+// Users.json and leave the committed dataset permanently "out of date". These
+// are demo accounts with a published password, so a fixed salt costs nothing
+// and keeps the generator's output reproducible.
+const DEMO_PASSWORD_SALT = '$2a$10$yYeh83SuBCycrb9yC/kHxe';
 const DEMO_USERS = [
   { handle: 'fizri', displayname: 'Fizri', rank_id: 'rank3' },
   { handle: 'burni', displayname: 'Burni', rank_id: 'rank2' },
@@ -192,7 +198,7 @@ function main() {
 
   // Accounts for the "explore as" buttons on the login page. Account changes
   // are blocked by the demo guard in userRoutes.js.
-  const passwordHash = bcryptjs.hashSync(DEMO_PASSWORD, 10);
+  const passwordHash = bcryptjs.hashSync(DEMO_PASSWORD, DEMO_PASSWORD_SALT);
   const users = DEMO_USERS.map(({ handle, ...user }) => ({
     ...user,
     password: passwordHash,

@@ -1,0 +1,33 @@
+name: Check the deployed API
+
+# The point of this one is the schedule. The deployed API once served an empty
+# catalogue for months: the process was up, so nothing alerted, and the repo
+# looked fine. This runs the same smoke test against the live URL every day, so
+# that failure surfaces the day it happens instead of when someone opens the
+# site.
+
+on:
+  schedule:
+    - cron: '0 1 * * *' # 08:00 Bangkok
+  workflow_dispatch:
+
+jobs:
+  smoke-test-production:
+    name: Read data through the live API
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Smoke test the deployment
+        # The host sleeps when idle, so the first request pays a cold start.
+        env:
+          SMOKE_BASE_URL: https://bbad-store-backend.onrender.com
+        run: |
+          echo "Waking the service up first — this can take a minute."
+          curl -s -o /dev/null --max-time 120 "$SMOKE_BASE_URL/api/checkConnection" || true
+          node scripts/smoke-test.js
