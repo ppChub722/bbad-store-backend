@@ -1,14 +1,18 @@
 name: Check the deployed API
 
-# The point of this one is the schedule. The deployed API once served an empty
-# catalogue for months: the process was up, so nothing alerted, and the repo
-# looked fine. This runs the same smoke test against the live URL every day, so
-# that failure surfaces the day it happens instead of when someone opens the
-# site.
+# Run this from the Actions tab before pointing anyone at the live demo.
+#
+# It runs the same smoke test as CI, but against the deployed URL instead of a
+# fresh local process, so it answers the question CI cannot: is the thing that
+# is actually running still serving data? The deployment once returned an empty
+# catalogue for months because the database behind it had gone away, and
+# nothing about the repository looked wrong.
+#
+# There is no schedule on purpose. A daily run would mostly send mail about a
+# demo nobody is looking at, and GitHub disables scheduled workflows in quiet
+# repositories anyway.
 
 on:
-  schedule:
-    - cron: '0 1 * * *' # 08:00 Bangkok
   workflow_dispatch:
 
 jobs:
