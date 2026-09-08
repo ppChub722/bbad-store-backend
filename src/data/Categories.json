@@ -1,0 +1,18 @@
+[
+  {
+    "_id": "wearables",
+    "category_name": "Wearables"
+  },
+  {
+    "_id": "collectibles",
+    "category_name": "Collectibles"
+  },
+  {
+    "_id": "art-books",
+    "category_name": "Art Books"
+  },
+  {
+    "_id": "digital-products",
+    "category_name": "Digital Products"
+  }
+]
